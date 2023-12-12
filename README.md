@@ -1,6 +1,5 @@
 # PyodideU
-## A system for running blockable Python, in the browser, with Pyodide and 
-Unthrow.
+## A system for running blockable Python, in the browser, with Pyodide and Unthrow.
 
 ## Built for CS1
 
