@@ -1,0 +1,26 @@
+{
+  "name": "pyodideu",
+  "version": "1.0.0",
+  "description": "PyodideU is a javascript wrapper arount the Pyodide API, using the Unthrow package to allow users to run blockable python from the main thread",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server ./demo -p 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeinplace/pyodideU.git"
+  },
+  "author": "TJ Jefferson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codeinplace/pyodideU/issues"
+  },
+  "homepage": "https://github.com/codeinplace/pyodideU#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.47.0"
+  }
+}
