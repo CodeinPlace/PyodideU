@@ -93,9 +93,6 @@ const updateStepScroll = () => {
     stepper.min = min
     stepper.value = max
     stepper.disabled = max === 0
-    console.log('set max', max)
-    console.log("set min", min)
-    console.log(editorInstance)
     editorInstance.
 }
 
