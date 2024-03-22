@@ -6,6 +6,11 @@ let pyodideClient = new PyodideApi();
 let isCodeRunning = false;
 let buffer = '';
 let debounceTimer;
+let stepList = [];
+let stepLogs = [];
+let highlightLine;
+
+const STEP_MODE = true;
 
 function appendToTerminal() {
     const terminal = document.getElementById('terminal');
@@ -18,7 +23,6 @@ function appendToTerminal() {
         lines = lines.slice(lines.length - 200);
     }
     terminal.innerHTML = lines.join('\n');
-
     terminal.scrollTop = terminal.scrollHeight; // Scroll to the bottom
 }
 
@@ -32,6 +36,9 @@ function scheduleFlush() {
 }
 
 function handleStdout(output) {
+    if(output === "__PREMESSAGE_TEST_IGNORE__") {
+        return
+    }
     buffer += output + '\n';
     scheduleFlush();
 }
@@ -52,6 +59,19 @@ require(['vs/editor/editor.main'], function() {
         ].join('\n'),
         language: 'python'
     });
+
+    highlightLine = function(lineNumber) {
+        const highlightStyle = {
+            range: new monaco.Range(lineNumber, 1, lineNumber, 1),
+            options: {
+                isWholeLine: true,
+                className: 'myHighlightClass'
+            }
+        };
+
+        // Apply the decoration
+        editorInstance.deltaDecorations([], [highlightStyle]);
+    };
 });
 
 
@@ -64,6 +84,32 @@ const onRunButtonClick = () => {
     }
 }
 
+const updateStepScroll = () => {
+    const min = 0
+    const max = stepList.length - 1
+    console.log(stepList)
+    const stepper = document.getElementById('step-scroll')
+    stepper.max = max
+    stepper.min = min
+    stepper.value = max
+    stepper.disabled = max === 0
+    console.log('set max', max)
+    console.log("set min", min)
+    console.log(editorInstance)
+    editorInstance.
+}
+
+const onStepScroll = (e) => {
+    const stepAsString = e.target.value
+    const step = parseInt(stepAsString)
+    const currentStep = stepList[step]
+    highlightLine(currentStep.lineno)
+
+
+
+}
+
+
 const runCode = async () => {
     isCodeRunning = true;
     document.getElementById('runButton').innerText = 'Running...';
@@ -72,7 +118,16 @@ const runCode = async () => {
         if (editorInstance) {
             const code = editorInstance.getValue();
             await setPyodide();
-            await pyodideClient.runPython(code, { name: "main.py" });
+            const result = await pyodideClient.runPython(code, { name: "main.py" }, STEP_MODE);
+            if(STEP_MODE) {
+                const stepInfo = pyodideClient.getStepInfo();
+                stepList = stepInfo.list
+                stepLogs = stepInfo.logs
+                updateStepScroll()
+                console.log(stepList)
+
+            }
+            console.log("Result:", result)
         } else {
             console.error('Editor instance not found');
         }
@@ -81,6 +136,9 @@ const runCode = async () => {
     }
     document.getElementById('runButton').innerText = 'Run';
     isCodeRunning = false;
+    handleStdout("%");
 }
 
 document.getElementById('runButton').onclick = onRunButtonClick;
+document.getElementById("step-scroll").onchange = onStepScroll;
+handleStdout("%");

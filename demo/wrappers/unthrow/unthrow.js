@@ -123,13 +123,9 @@ self.jsPyQuery = {
   },
 
   getStep() {
-    // if (self.karelInfo.active) {
-    //   return ["karel", {
-    //     state: deepCopy(self.karelInfo.client.currentState)
-    //   }, self.stepInfo.currlp]
-    // } else if (self.canvasInfo.active) {
-    //   return ["graphics", deepCopy(self.canvasInfo.client.canvasObjects), self.stepInfo.currlp]
-    // }
+    if (self.canvasInfo.active) {
+      return ["graphics", deepCopy(self.canvasInfo.client.canvasObjects), self.stepInfo.currlp]
+    }
 
     return ["", {}, self.stepInfo.currlp]
 
@@ -208,13 +204,9 @@ export class PyodideApi {
         locals: {}
       }
 
-      // if(self.karelInfo.active) {
-      //   newInfo["karel"] = {
-      //     state: deepCopy(self.karelInfo.client.currentState)
-      //   }
-      // } else if(self.canvasInfo.active) {
-      //   newInfo["graphics"] = deepCopy(self.canvasInfo.client.canvasObjects)
-      // }
+      if(self.canvasInfo.active) {
+        newInfo["graphics"] = { ...self.canvasInfo.client.canvasObjects }
+      }
 
       self.stepInfo.frames.push(newInfo)
     }
@@ -262,8 +254,7 @@ export class PyodideApi {
       await this._executeScripts(mainApp, setupScript)
       await runningPromise.promise
       const endStates = {
-        // karel: self.karelInfo.client ? deepCopy(self.karelInfo.client.currentState) : {},
-        // graphics: deepCopy(self.canvasInfo.state),
+        graphics: {...self.canvasInfo.state},
         error: [...self.stepInfo.error],
         output: [...self.stepInfo.stdout],
         error_message: [...self.stepInfo.error_message],
@@ -276,6 +267,13 @@ export class PyodideApi {
       console.warn("Python Is Still Loading")
     }
     return {}
+  }
+
+  getStepInfo() {
+    return {
+      list: self.stepInfo.frames,
+      logs: self.stepInfo.stdout,
+    };
   }
 
 
