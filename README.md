@@ -12,6 +12,7 @@
 - [ ] Add input to both demos
 - [ ] Fix stepper on unthrow demo
 
+Please see our paper for more info and contact details: https://dl.acm.org/doi/pdf/10.1145/3626252.3630913
 
 Our work builds upon the work done with Pyodide, and Unthrow (Joe Marshall), so go check them out too!
 Pyodide: https://pyodide.org
