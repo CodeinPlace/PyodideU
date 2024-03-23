@@ -30,7 +30,9 @@ const MAX_SPEED = 1000;
 
 async function loadPyodideAndPackages() {
     let first = true;
+    console.log("Loading")
     self.pyodide = await loadPyodide({
+        indexURL: "https://cdn.jsdelivr.net/pyodide/v0.23.1/full/",
         stdout: text => {
             if (text == "Python initialization complete" && first) {
                 first = false;
