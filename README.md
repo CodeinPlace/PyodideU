@@ -8,7 +8,13 @@
 * Synchronous I/O
 * Graphics!
 
-# TODO: Add docs
+# TODO: 
+- [ ] Add docs
+- [ ] Add graphics, stdout, stderr to webworker demo
+- [ ] Add input to both demos
+- [ ] Fix stepper on unthrow demo
 
 
-Thanks to Pyodide and Unthrow for making this possible.
+Our work builds upon the work done with Pyodide, and Unthrow (Joe Marshall), so go check them out too!
+Pyodide: https://pyodide.org
+Unthrow: https://github.com/joemarshall/unthrow
