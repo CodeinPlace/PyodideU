@@ -6,6 +6,10 @@
 * Synchronous I/O
 * Graphics!
 
+# Demo (Work in Progress)
+1. Run `npm install`
+2. Then to run the main thread version by running `npm run main` or the web worker version by running `npm run thread`.
+
 # TODO: 
 - [ ] Add docs
 - [ ] Add graphics, stdout, stderr to webworker demo
