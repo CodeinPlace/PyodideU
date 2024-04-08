@@ -21,3 +21,6 @@ Please see our paper for more info and contact details: https://dl.acm.org/doi/p
 Our work builds upon the work done with Pyodide, and Unthrow (Joe Marshall), so go check them out too!
 Pyodide: https://pyodide.org
 Unthrow: https://github.com/joemarshall/unthrow
+
+# License
+MIT
