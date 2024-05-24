@@ -1,6 +1,6 @@
 # PyodideU
 ## A system for running blockable Python in the browser, with [Pyodide](https://pyodide.org) and [Unthrow](https://github.com/joemarshall/unthrow), built specifically for CS1
-
+You can see PyodideU running in browser at https://ide.stanford.edu/public
 ### Features
 * Line by line debugger with access to local variable scope.
 * Synchronous I/O
